@@ -5,6 +5,7 @@ import static com.mms.util.MString.getZ2Uni;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,8 +24,18 @@ public class FileConverter {
 		inList = new ArrayList<String>();
 		outList = new ArrayList<String>();
 		this.inFileType = type;
-		
-		BufferedReader br = new BufferedReader(new FileReader(pathin));
+		this.init(new File(pathin));
+	}
+
+	public FileConverter(File file, FILE_TYPE type) throws IOException {
+		inList = new ArrayList<String>();
+		outList = new ArrayList<String>();
+		this.inFileType = type;
+		this.init(file);
+	}
+
+	private void init(File f) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(f));
 		String line = null;
 		while((line = br.readLine()) != null) {
 			inList.add(line);
@@ -33,8 +44,7 @@ public class FileConverter {
 			else 
 				outList.add(getUni2Z(line));
 		}
-	}
-
+	}	
 	public List<String> getUniList() {
 		if (inFileType.equals(FILE_TYPE.ZAWGYI))
 			return outList;
@@ -63,22 +73,21 @@ public class FileConverter {
 	
 	private void writeFile(String path, List<String> lines) throws IOException {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(path));
-		for(String line : lines) {
-			bw.write(line);
+		
+		for(int i=0; i <lines.size(); i++) {
+			bw.write(lines.get(i));
+			if(i != lines.size() -1)
+				bw.write("\n");
 		}
 		bw.flush();
 		bw.close();
 	}
 	
-	public static void main(String[] args) {
-		try {
-			FileConverter fc = new FileConverter("zawgyiFile.txt", FILE_TYPE.ZAWGYI);
-			List<String> uniList = fc.getUniList();
-			for(String s : uniList)
-				System.out.println(s);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void writeConvertFile(String outPath) throws IOException {
+		if(this.inFileType.equals(FILE_TYPE.ZAWGYI)) {
+			this.writeUniFile(outPath);
+		} else {
+			this.writeZawGyiFile(outPath);
 		}
 	}
 }
