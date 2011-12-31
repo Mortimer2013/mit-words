@@ -6,7 +6,9 @@ public class SwitchSample {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		writeChar("one");
+		writeChar("two");
+		writeChar("four");
 	}
 
 	static void writeChar(String str) {
