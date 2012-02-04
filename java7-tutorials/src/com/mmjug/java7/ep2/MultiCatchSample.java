@@ -17,6 +17,7 @@ public class MultiCatchSample {
 			DocumentBuilderFactory factory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
+			@SuppressWarnings("unused")
 			Document doc = builder.parse(new FileInputStream("file.xml"));
 
 		} catch (ParserConfigurationException | SAXException | IOException e) {

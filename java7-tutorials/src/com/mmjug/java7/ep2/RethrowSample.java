@@ -18,6 +18,7 @@ public class RethrowSample {
 			DocumentBuilderFactory factory = DocumentBuilderFactory
 					.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
+			@SuppressWarnings("unused")
 			Document doc = builder.parse(new FileInputStream("file.xml"));
 
 		} catch (final Exception e) {
