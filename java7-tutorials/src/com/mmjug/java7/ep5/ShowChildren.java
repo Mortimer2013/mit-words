@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 
 public class ShowChildren {
 	
-	private static final String BIAS = "\t";
+	private static final String BIAS = "    ";
 	
 	public void showChildren(Path path, String bias) throws IOException {
 		
